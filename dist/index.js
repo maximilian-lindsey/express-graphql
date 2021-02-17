@@ -194,9 +194,9 @@ function graphqlHTTP(options) {
           result: result,
           context: context
         })).then(function (extensions) {
-          if (extensions && (typeof extensions === 'undefined' ? 'undefined' : _typeof(extensions)) === 'object') {
-            result.extensions = extensions;
-          }
+          // if (extensions && (typeof extensions === 'undefined' ? 'undefined' : _typeof(extensions)) === 'object') {
+          //   result.extensions = extensions;
+          // }
           return result;
         });
       }
