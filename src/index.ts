@@ -352,7 +352,7 @@ export function graphqlHTTP(options: Options): Middleware {
         });
 
         if (extensions != null) {
-          result = { ...result, extensions };
+          result = { ...result };
         }
       }
     } catch (rawError: unknown) {
