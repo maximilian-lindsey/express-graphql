@@ -20,7 +20,7 @@ describe('Integration Tests', () => {
   fs.rmdirSync(tmpDir, { recursive: true, force: true });
   fs.mkdirSync(tmpDir);
 
-  const distDir = path.resolve('./npmDist');
+  const distDir = path.resolve('./dist');
   const archiveName = exec(`npm --quiet pack ${distDir}`, { cwd: tmpDir });
   fs.renameSync(
     path.join(tmpDir, archiveName),

@@ -15,12 +15,12 @@ const {
 const { rmdirRecursive, readdirRecursive, showDirStats } = require('./utils');
 
 if (require.main === module) {
-  rmdirRecursive('./npmDist');
-  fs.mkdirSync('./npmDist');
+  rmdirRecursive('./dist');
+  fs.mkdirSync('./dist');
 
   const srcFiles = readdirRecursive('./src', { ignoreDir: /^__.*__$/ });
   const { options } = ts.convertCompilerOptionsFromJson(
-    { ...tsConfig.compilerOptions, outDir: 'npmDist' },
+    { ...tsConfig.compilerOptions, outDir: 'dist' },
     process.cwd(),
   );
   const program = ts.createProgram({
@@ -30,19 +30,19 @@ if (require.main === module) {
   program.emit(undefined, undefined, undefined, undefined, {
     after: [transformLoadFileStaticallyFromNPM],
   });
-  downlevel('./npmDist', './npmDist/ts3.4', '3.4.0');
+  downlevel('./dist', './dist/ts3.4', '3.4.0');
 
-  fs.copyFileSync('./LICENSE', './npmDist/LICENSE');
-  fs.copyFileSync('./README.md', './npmDist/README.md');
+  fs.copyFileSync('./LICENSE', './dist/LICENSE');
+  fs.copyFileSync('./README.md', './dist/README.md');
 
   // Should be done as the last step so only valid packages can be published
   const packageJSON = buildPackageJSON();
   fs.writeFileSync(
-    './npmDist/package.json',
+    './dist/package.json',
     JSON.stringify(packageJSON, null, 2),
   );
 
-  showDirStats('./npmDist');
+  showDirStats('./dist');
 }
 
 function buildPackageJSON() {
